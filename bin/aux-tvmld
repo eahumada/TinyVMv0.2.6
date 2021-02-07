@@ -1,0 +1,20 @@
+#!/bin/sh
+
+JAVAVM=java
+TINYVMOPTIONS="${TINYVMOPTIONS} -Dtinyvm.home=${TINYVM_HOME}"
+
+if [ "${OSTYPE}" = "cygwin32" -o "${OSTYPE}" = "cygwin" ];
+then
+  # Note: CLASSPATH must be given as a Windows PATH, just
+  # like you would give it to run Java with the JDK.
+  TINYVMPATH="${TINYVMPATH};${TINYVM_HOME}/lib/classes.jar;${CLASSPATH}"
+else
+  TINYVMPATH="${TINYVMPATH}:${TINYVM_HOME}/lib/classes.jar:${CLASSPATH}"
+fi
+
+CLASSPATH="${TINYVM_HOME}/lib/jtools.jar"
+export CLASSPATH
+
+${JAVAVM} ${TINYVMOPTIONS} js.tinyvm.TinyVM -classpath "${TINYVMPATH}" $@
+
+

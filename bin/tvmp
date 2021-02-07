@@ -1,0 +1,20 @@
+#!/bin/sh
+
+if [ "${JAVAP}" = "" ];
+then
+  JAVAP=javap
+fi
+
+if [ "${OSTYPE}" = "cygwin32" -o "${OSTYPE}" = "cygwin" ];
+then
+  TINYVM_HOME="`dirname $0`/.."
+  TINYVM_HOME="`cygpath -w ${TINYVM_HOME}`"
+  JCCP="${TINYVMPATH};${TINYVM_HOME}/lib/classes.jar"
+else
+  TINYVM_HOME="`dirname $0`/.."
+  JCCP="${TINYVMPATH}:${TINYVM_HOME}/lib/classes.jar"
+fi
+
+${JAVAP} -bootclasspath "${JCCP}" $@
+
+

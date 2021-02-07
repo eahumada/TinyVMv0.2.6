@@ -1,0 +1,12 @@
+#!/bin/sh
+
+TINYVM_HOME="`dirname $0`/.."
+export TINYVM_HOME
+OLDFIRMDL=$TINYVM_HOME/bin/old-tvmfirmdl
+if [ ! -f $OLDFIRMDL ];
+then
+  echo Firmware download program not found.
+  echo Did you run make yet?
+  exit 1
+fi
+$OLDFIRMDL $@
